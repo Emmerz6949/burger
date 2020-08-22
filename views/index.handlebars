@@ -1,0 +1,38 @@
+<img src="https://www.pikpng.com/pngl/m/164-1641988_transparent-library-hamburger-clipart-layer-free-on-making.png" alt="Transparent Library Hamburger Clipart Layer Free On - Making A Burger Clip Art - Png Download@pikpng.com">
+
+<h1>Ohm-nom-nom: Eat-Da-Burger!</h1>
+
+<ol class="leftList">
+    {{#each ohm}}
+        {{#unless devoured}}
+            <li>
+                <div class="availabrgrs">
+                    {{burger_name}}
+                </div>
+
+                <button class="yum" data-id="{{id}}" data-devoured="{{devoured}}">
+                    Devour It!
+                </button>
+            </li>
+        {{/unless}}
+    {{/each}}
+</0l>
+
+<ol class="rightList">
+    {{#each ohm}}
+        {{#if devoured}}
+            <li>
+                {{burger_name}}
+            </li>
+        {{/if}}
+    {{/each}}
+</0l>
+
+<form class="create-form">
+  <textarea name="burger_name" rows="6" cols="50"></textarea>
+
+  <button type="submit" class="makeBurg">Submit</button>
+</form>
+
+<p>Enter a burger you want to eat then click the "Submit" button!</p>
+
