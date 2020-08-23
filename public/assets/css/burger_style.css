@@ -1,0 +1,13 @@
+body {
+    background-color: orange;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+h1 {
+    color: orangered;
+}
+
+.makeBurg {
+    background-color: steelblue;
+}
