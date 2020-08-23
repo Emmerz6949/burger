@@ -1,37 +1,81 @@
-<img src="/assets/img/burger.png" alt="Transparent Library Hamburger Clipart Layer Free On - Making A Burger Clip Art - Png Download@pikpng.com">
+<img src="/assets/img/burger.png" style="height: 25%;" alt="Transparent Library Hamburger Clipart Layer Free On - Making A Burger Clip Art - Png Download@pikpng.com">
 
 <h1>Ohm-nom-nom: Eat-Da-Burger!</h1>
 
-<ol class="leftList">
-    {{#each ohm}}
-        {{#unless devoured}}
-            <li>
-                <div class="availabrgrs">
+<div class="row">
+    <ol class="rightColumn">
+        {{#each burgers}}
+            {{#unless devoured}}
+                <li>
+                    <div class="availabrgrs">
+                        {{burger_name}}
+                    </div>
+
+                    <button class="yum" data-id="{{id}}">
+                        Devour It!
+                    </button>
+                </li>
+            {{/unless}}
+        {{/each}}
+    </ol>
+
+    <ol class="leftColumn">
+        {{#each burgers}}
+            {{#if devoured}}
+                <li>
                     {{burger_name}}
-                </div>
-
-                <button class="yum" data-id="{{id}}" data-devoured="{{devoured}}">
-                    Devour It!
-                </button>
-            </li>
-        {{/unless}}
-    {{/each}}
-</0l>
-
-<ol class="rightList">
-    {{#each ohm}}
-        {{#if devoured}}
-            <li>
-                {{burger_name}}
-            </li>
-        {{/if}}
-    {{/each}}
-</0l>
+                </li>
+            {{/if}}
+        {{/each}}
+    </ol>
+</div>
 
 <form class="create-form">
-  <textarea name="burger_name" rows="6" cols="50"></textarea>
+  <textarea id="burger_name" name="burger_name" rows="6" cols="50"></textarea>
 
   <button type="submit" class="makeBurg">Submit</button>
 </form>
 
 <p>Enter a burger you want to eat then click the "Submit" button!</p>
+
+
+
+<script>
+    $(function() {
+        $(".yum").on("click", function(event) {
+            const id = $(this).data("id");
+            const nom = {devoured: 1};
+
+            // Send the PUT request.
+            $.ajax("/api/burgers/" + id, {
+            type: "PUT",
+            data: nom
+            }).then(
+                function() {
+                    console.log("Burger has been eaten!");
+                    // Reload the page to get the updated list
+                    location.reload();
+                }
+            );
+        });
+
+        $(".create-form").on("submit", function(event) {
+            // Make sure to preventDefault on a submit event.
+            event.preventDefault();
+
+            const nomNom = {burger_name: $("#burger_name").val()};
+
+            // Send the POST request.
+            $.ajax("/api/burgers", {
+            type: "POST",
+            data: nomNom
+            }).then(
+                function() {
+                    console.log("Added new burger!");
+                    // Reload the page to get the updated list
+                    location.reload();
+                }
+            );
+        });
+    });
+</script>
